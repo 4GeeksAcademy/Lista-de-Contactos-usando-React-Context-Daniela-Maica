@@ -1,0 +1,23 @@
+body {
+    width: 100%;
+    height: 100vh;
+ 
+}
+
+.circle_img {
+  border-radius: 50%;
+}
+
+.center-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-grey {
+  display: block;
+  color: #6c757c;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
