@@ -1,36 +1,58 @@
 export const initialStore = () => {
   return {
-    message: null,
-    apiUrl: "https://playground.4geeks.com/contact", // API base
-    agenda_slug: "mi_agenda_personal", // cámbialo si usas otro nombre
-    contacts: [] // lista vacía al iniciar
-  };
+  apiUrl: "https://playground.4geeks.com/contact",
+  agenda_slug: "ajsb",
+  contacts: [],
+  loading: false,
+  error: null
+};
 };
 
-export default function storeReducer(store, action = {}) {
+export default function storeReducer (state, action) {
   switch (action.type) {
-
     case "set_contacts":
-      return { ...store, contacts: action.payload };
+      return {
+        ...state,
+        contacts: action.payload,
+        loading: false,  
+        error: null      
+      };
 
     case "add_contact_local":
-      return { ...store, contacts: [...store.contacts, action.payload] };
+        return {
+            ...state,
+            contacts: [...state.contacts, action.payload],
+            loading: false
+        };
 
     case "update_contact_local":
-      return {
-        ...store,
-        contacts: store.contacts.map((c) =>
-          c.id === action.payload.id ? action.payload : c
-        ),
-      };
+        return {
+            ...state,
+            contacts: state.contacts.map(c =>
+                c.id === action.payload.id ? action.payload : c
+            )
+        };
 
     case "delete_contact_local":
-      return {
-        ...store,
-        contacts: store.contacts.filter((c) => c.id !== action.payload),
-      };
+        return {
+        ...state,
+        contacts: state.contacts.filter(c => c.id !== action.payload)
+        };
 
-    default:
-      throw new Error(`Unknown action type: ${action.type}`);
+    case "set_loading":
+        return{
+            ...state,
+            loading: true,
+            error: null
+        };
+
+    case "set_error":
+        return {
+            ...state,
+            loading: false,
+            error: action.payload
+        };
+        default:
+            return state;
   }
 }
